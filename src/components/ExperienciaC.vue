@@ -1,11 +1,21 @@
 <template>
 
-<div class="contenedor" >
-    <div class="opciones">
+<div class="contenedor" v-if="!experiencia">
+    <div @click="habilitarExperienciaBuena"   class="opciones">
         <a>Buena</a>
     </div>
-    <div class="opciones" >
+    <div @click="habilitarExperienciaMala" class="opciones" >
         <a>Mala</a>
+    </div>
+</div>
+
+<!--Contenedor experiencia buena o mala-->
+<div v-if="experiencia" >
+    <div v-if="experienciaB">
+        <buena-experiencia />
+    </div>
+    <div v-if="experienciaM" >
+        <mala-experiencia />
     </div>
 </div>
     
@@ -13,8 +23,30 @@
 
 <script>
 
+import BuenaExperiencia from './BuenaExperienciaC.vue';
+import MalaExperiencia from './MalaExperienciaC.vue';
+
 export default{
-    
+    data: () => ({
+        experiencia: false,
+        experienciaB: false,
+        experienciaM: false,
+    }),
+    components: {
+        BuenaExperiencia,
+        MalaExperiencia
+    },
+    methods:{
+        habilitarExperienciaBuena(){
+            this.experiencia = true;
+            this.experienciaB = true;
+        },
+        habilitarExperienciaMala(){
+            this.experiencia = true;
+            this.experienciaM = true;
+        }
+    }
+
 }
 
 </script>
@@ -31,6 +63,9 @@ export default{
     padding: 40px;
     background: #2d3036;
     border-radius: 8px;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
 }
 
 .opciones:hover{

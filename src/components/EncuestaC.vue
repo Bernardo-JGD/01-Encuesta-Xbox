@@ -70,9 +70,14 @@ export default{
             this.tituloPosicion = 1;
             this.descripcionHabilitado = false;
             this.experienciaInicio = true;
-            this.enviar = true;
+            this.enviar = false;
+        },
+        btnEnviarVisible(){
 
         },
+        btnEnviarHabilitado(){
+            
+        }
 
 
     }
