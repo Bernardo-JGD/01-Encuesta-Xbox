@@ -2,7 +2,8 @@
 <div class="contenedorPrincipal" >
     <div class="contenedorElementos" >
         <!--Boton cerrar-->
-        <div class="contenedorCerrar" >
+        <div :class="{ 'contenedorCerrar': !regresar, 'contenedorCerrarRegresar':regresar }" >
+            <a v-if="regresar"  >Regresar</a>
             <a>Cerrar</a>
         </div>
 
@@ -13,8 +14,8 @@
         </div>
 
         <!-- Contenedor de cambio elementos-->
-        <div class="" v-if="experienciaInicio" >
-            <experiencia />
+        <div class="" v-if="experienciaInicio"  >
+            <experiencia @regresar-boton="btnRegresarVisible" @enviar-boton="btnEnviarVisible" @cambiar-titulo-descripcion="cambiarTituloDescripcion" />
         </div>
 
         <!-- Contenedor botones-->
@@ -56,6 +57,7 @@ export default{
         salirJuego: true,
         experienciaInicio: false,
         enviar: true,
+        regresar: false,
     }),
     components: {
         Titulo,
@@ -72,11 +74,23 @@ export default{
             this.experienciaInicio = true;
             this.enviar = false;
         },
+        
+        btnRegresarVisible(){
+            this.regresar = !this.regresar;
+        },
         btnEnviarVisible(){
-
+            this.enviar = true;
+        },
+        cambiarTituloDescripcion(tituloPosicion, descripcionPosicion){
+            this.tituloPosicion = tituloPosicion;
+            this.descripcionPosicion = descripcionPosicion;
+            this.descripcionHabilitado = true;
         },
         btnEnviarHabilitado(){
             
+        },
+        regresarOpciones(){
+
         }
 
 
@@ -100,6 +114,11 @@ export default{
 .contenedorCerrar{
     display: flex;
     flex-direction: row-reverse;
+}
+
+.contenedorCerrarRegresar{
+    display: flex;
+    justify-content: space-between;
 }
 
 .contenedorTituloDescripcion{

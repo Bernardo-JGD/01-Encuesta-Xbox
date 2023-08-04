@@ -1,10 +1,10 @@
 <template>
 
 <div class="contenedor" v-if="!experiencia">
-    <div @click="habilitarExperienciaBuena"   class="opciones">
+    <div @click="habilitarExperienciaBuena(), $emit('regresarBoton'), $emit('enviarBoton'), $emit('cambiarTituloDescripcion', 2, 1)"  class="opciones">
         <a>Buena</a>
     </div>
-    <div @click="habilitarExperienciaMala" class="opciones" >
+    <div @click="habilitarExperienciaMala(), $emit('regresarBoton'), $emit('enviarBoton'), $emit('cambiarTituloDescripcion', 3, 1)" class="opciones" >
         <a>Mala</a>
     </div>
 </div>

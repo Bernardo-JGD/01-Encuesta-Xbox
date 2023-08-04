@@ -14,6 +14,7 @@ export default{
             "¿Estás seguro?",
             "¿Cómo es tu experiencia de juego?",
             "¡Excelente! ¿Qué te gustó?",
+            "Ayudamos a mejorar",
             "Juego",
             "Streaming",
             "Controles",

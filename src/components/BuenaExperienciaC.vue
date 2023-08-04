@@ -1,7 +1,7 @@
 <template>
 
-    <div class="contenedor" >
-        <div class="opciones" >
+    <div v-if="!respuestasVisibles" class="contenedor"  >
+        <div class="opciones" @click="habilitarRespuestas" >
             <a>Juego</a>
         </div>
         <div class="opciones" >
@@ -9,11 +9,29 @@
         </div>
     </div>
 
+    <div v-if="respuestasVisibles" >
+        <respuestas />
+    </div>
+
 </template>
 
 <script>
 
+import Respuestas from './ListaRespuestaC.vue';
+
 export default{
+
+    data: () => ({
+        respuestasVisibles: false,
+    }),
+    components: {
+        Respuestas
+    },
+    methods: {
+        habilitarRespuestas(){
+            this.respuestasVisibles = true;
+        }
+    }
 
 }
 
