@@ -1,16 +1,16 @@
 <template>
 
     <div v-if="!respuestasVisibles" class="contenedor"  >
-        <div class="opciones" @click="habilitarRespuestas" >
+        <div class="opciones" @click="habilitarRespuestasJuego" >
             <a>Juego</a>
         </div>
-        <div class="opciones" >
+        <div class="opciones" @click="habilitarRespuestasStreaming" >
             <a>Streaming</a>
         </div>
     </div>
 
     <div v-if="respuestasVisibles" >
-        <respuestas />
+        <respuestas :posicion-lista-opciones="posicionListaOpciones" />
     </div>
 
 </template>
@@ -23,13 +23,18 @@ export default{
 
     data: () => ({
         respuestasVisibles: false,
+        posicionListaOpciones: "juegoBueno",
     }),
     components: {
         Respuestas
     },
     methods: {
-        habilitarRespuestas(){
+        habilitarRespuestasJuego(){
             this.respuestasVisibles = true;
+        },
+        habilitarRespuestasStreaming(){
+            this.respuestasVisibles = true;
+            this.posicionListaOpciones = "streamingBueno";
         }
     }
 
