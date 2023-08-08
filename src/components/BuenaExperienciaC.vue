@@ -1,10 +1,10 @@
 <template>
 
     <div v-if="!respuestasVisibles" class="contenedor"  >
-        <div class="opciones" @click="habilitarRespuestasJuego" >
+        <div class="opciones" @click="habilitarRespuestasJuego(), btnEnviarHabilitar()" >
             <a>Juego</a>
         </div>
-        <div class="opciones" @click="habilitarRespuestasStreaming" >
+        <div class="opciones" @click="habilitarRespuestasStreaming(), btnEnviarHabilitar()" >
             <a>Streaming</a>
         </div>
     </div>
@@ -35,6 +35,9 @@ export default{
         habilitarRespuestasStreaming(){
             this.respuestasVisibles = true;
             this.posicionListaOpciones = "streamingBueno";
+        },
+        btnEnviarHabilitar(){
+            this.$emit("ExperienciaBtnEnviar")
         }
     }
 

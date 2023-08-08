@@ -15,7 +15,10 @@
 
         <!-- Contenedor de cambio elementos-->
         <div class="" v-if="experienciaInicio"  >
-            <experiencia @regresar-boton="btnRegresarVisible" @enviar-boton="btnEnviarVisible" @cambiar-titulo-descripcion="cambiarTituloDescripcion" />
+            <experiencia @regresar-boton="btnRegresarVisible"
+                         @enviar-boton="btnEnviarVisible"
+                         @cambiar-titulo-descripcion="cambiarTituloDescripcion"
+            />
         </div>
 
         <!-- Contenedor botones-->
@@ -78,8 +81,9 @@ export default{
         btnRegresarVisible(){
             this.regresar = !this.regresar;
         },
-        btnEnviarVisible(){
-            this.enviar = true;
+        btnEnviarVisible(habilitar){
+            console.log("Entro");
+            this.enviar = habilitar;
         },
         cambiarTituloDescripcion(tituloPosicion, descripcionPosicion){
             this.tituloPosicion = tituloPosicion;

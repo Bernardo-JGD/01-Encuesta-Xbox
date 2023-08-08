@@ -1,10 +1,10 @@
 <template>
 
 <div class="contenedor" v-if="!experiencia">
-    <div @click="habilitarExperienciaBuena(), $emit('regresarBoton'), $emit('enviarBoton'), $emit('cambiarTituloDescripcion', 2, 1)"  class="opciones">
+    <div @click="habilitarExperienciaBuena(), $emit('regresarBoton'), $emit('enviarBoton', true), $emit('cambiarTituloDescripcion', 2, 1)" class="opciones">
         <a>Buena</a>
     </div>
-    <div @click="habilitarExperienciaMala(), $emit('regresarBoton'), $emit('enviarBoton'), $emit('cambiarTituloDescripcion', 3, 1)" class="opciones" >
+    <div @click="habilitarExperienciaMala(), $emit('regresarBoton'), $emit('enviarBoton', true), $emit('cambiarTituloDescripcion', 3, 1)" class="opciones" >
         <a>Mala</a>
     </div>
 </div>
@@ -12,10 +12,10 @@
 <!--Contenedor experiencia buena o mala-->
 <div v-if="experiencia" >
     <div v-if="experienciaB">
-        <buena-experiencia />
+        <buena-experiencia @experiencia-btn-enviar="ExperienciaBtnEnviar" />
     </div>
     <div v-if="experienciaM" >
-        <mala-experiencia />
+        <mala-experiencia @btnEnviarHabilitar="ExperienciaBtnEnviar" />
     </div>
 </div>
     
@@ -44,6 +44,10 @@ export default{
         habilitarExperienciaMala(){
             this.experiencia = true;
             this.experienciaM = true;
+        },
+        ExperienciaBtnEnviar(){
+            console.log("Entro");
+            this.$emit('enviarBoton', false);
         }
     }
 
