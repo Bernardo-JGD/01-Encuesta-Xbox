@@ -1,21 +1,43 @@
 <template>
 
-<div class="contenedor" v-if="!experiencia">
-    <div @click="habilitarExperienciaBuena(), $emit('regresarBoton'), $emit('enviarBoton', true), $emit('cambiarTituloDescripcion', 2, 1)" class="opciones">
+<div class="contenedor" v-if="habilitarBotonesExperiencia">
+    <div @click="
+        $emit('componentesEncuestaIncremento'),
+        $emit('cambiarEstadosComponentes', 0), 
+        $emit('enviarBoton', true), 
+        $emit('cambiarTituloDescripcion', 2, 1)
+        
+         " 
+         class="opciones"
+    >
         <a>Buena</a>
     </div>
-    <div @click="habilitarExperienciaMala(), $emit('regresarBoton'), $emit('enviarBoton', true), $emit('cambiarTituloDescripcion', 3, 1)" class="opciones" >
+    <div @click="
+        $emit('componentesEncuestaIncremento'),
+        $emit('cambiarEstadosComponentes', 1),
+        $emit('enviarBoton', true), 
+        $emit('cambiarTituloDescripcion', 3, 1)
+        
+        "
+        class="opciones"
+    >
         <a>Mala</a>
     </div>
 </div>
 
 <!--Contenedor experiencia buena o mala-->
-<div v-if="experiencia" >
-    <div v-if="experienciaB">
-        <buena-experiencia @experiencia-btn-enviar="ExperienciaBtnEnviar" />
+<div v-if="habilitarComponentesExperiencia" >
+    <div v-if="habilitarExperienciaBuena">
+        <buena-experiencia 
+            @experiencia-btn-enviar="ExperienciaBtnEnviar"
+            :habilitarExperienciaBuenaBotones="habilitarExperienciaBuenaBotones"
+            :habilitarComponenteRespuestas="habilitarComponenteRespuestas"
+        />
     </div>
-    <div v-if="experienciaM" >
-        <mala-experiencia @btnEnviarHabilitar="ExperienciaBtnEnviar" />
+    <div v-if="habilitarExperienciaMala" >
+        <mala-experiencia 
+            @btnEnviarHabilitar="ExperienciaBtnEnviar"
+        />
     </div>
 </div>
     
@@ -28,27 +50,29 @@ import MalaExperiencia from './MalaExperienciaC.vue';
 
 export default{
     data: () => ({
-        experiencia: false,
-        experienciaB: false,
-        experienciaM: false,
+
     }),
+    props: [
+        "habilitarBotonesExperiencia",
+        "habilitarComponentesExperiencia",
+        "habilitarExperienciaBuena", 
+        "habilitarExperienciaMala",
+        "habilitarExperienciaBuenaBotones",
+        "habilitarComponenteRespuestas"
+    ],
     components: {
         BuenaExperiencia,
         MalaExperiencia
     },
     methods:{
-        habilitarExperienciaBuena(){
-            this.experiencia = true;
-            this.experienciaB = true;
-        },
-        habilitarExperienciaMala(){
-            this.experiencia = true;
-            this.experienciaM = true;
-        },
         ExperienciaBtnEnviar(){
             console.log("Entro");
             this.$emit('enviarBoton', false);
+        },
+        cambiarEstadosComponentesEnEncuesta(){
+            this.$emit("");
         }
+
     }
 
 }

@@ -1,15 +1,15 @@
 <template>
-
-    <div v-if="!respuestasVisibles" class="contenedor"  >
-        <div class="opciones" @click="habilitarRespuestasJuego(), btnEnviarHabilitar()" >
+    <!--experiencias buenas-->
+    <div v-if="habilitarExperienciaBuenaBotones" class="contenedor"  >
+        <div class="opciones" @click="" >
             <a>Juego</a>
         </div>
-        <div class="opciones" @click="habilitarRespuestasStreaming(), btnEnviarHabilitar()" >
+        <div class="opciones" @click="" >
             <a>Streaming</a>
         </div>
     </div>
-
-    <div v-if="respuestasVisibles" >
+    <!--respuestas-->
+    <div v-if="habilitarComponenteRespuestas" >
         <respuestas :posicion-lista-opciones="posicionListaOpciones" />
     </div>
 
@@ -25,16 +25,16 @@ export default{
         respuestasVisibles: false,
         posicionListaOpciones: "juegoBueno",
     }),
+    props: ["habilitarExperienciaBuenaBotones", "habilitarComponenteRespuestas"],
     components: {
         Respuestas
     },
     methods: {
-        habilitarRespuestasJuego(){
-            this.respuestasVisibles = true;
+        emitHabilitarExperienciaBuenaJuegoRespuestas(){
+            this.$emit("cambiarEstadosComponentesEnEncuesta");
         },
-        habilitarRespuestasStreaming(){
-            this.respuestasVisibles = true;
-            this.posicionListaOpciones = "streamingBueno";
+        emitHabilitarExperienciaBuenaStreamingRespuestas(){
+            this.$emit("cambiarEstadosComponentesEnEncuesta");
         },
         btnEnviarHabilitar(){
             this.$emit("ExperienciaBtnEnviar")

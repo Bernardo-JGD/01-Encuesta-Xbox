@@ -3,8 +3,12 @@
     <div class="contenedorElementos" >
         <!--Boton cerrar-->
         <div :class="{ 'contenedorCerrar': !regresar, 'contenedorCerrarRegresar':regresar }" >
-            <a v-if="regresar"  >Regresar</a>
-            <a>Cerrar</a>
+            <div v-if="regresar" @click="componentesEncuestaDecremento()" class="btnRegresar" >
+                <a  >Regresar</a>
+            </div>
+            <div>
+                <a>Cerrar</a>
+            </div>
         </div>
 
         <!--Titulo-->
@@ -15,9 +19,15 @@
 
         <!-- Contenedor de cambio elementos-->
         <div class="" v-if="experienciaInicio"  >
-            <experiencia @regresar-boton="btnRegresarVisible"
-                         @enviar-boton="btnEnviarVisible"
+            <experiencia @enviar-boton="btnEnviarVisible"
                          @cambiar-titulo-descripcion="cambiarTituloDescripcion"
+                         @componentes-encuesta-incremento="componentesEncuestaIncremento"
+                         @cambiar-estados-componentes="cambiarEstadosComponentes"
+                         :habilitarBotonesExperiencia="habilitarBotonesExperiencia"
+                         :habilitarComponentesExperiencia="habilitarComponentesExperiencia"
+                         :habilitarExperienciaBuena="habilitarExperienciaBuena"
+                         :habilitarExperienciaBuenaBotones="habilitarExperienciaBuenaBotones"
+                         :habilitarComponenteRespuestas="habilitarComponenteRespuestas"
             />
         </div>
 
@@ -61,6 +71,15 @@ export default{
         experienciaInicio: false,
         enviar: true,
         regresar: false,
+        encuestaComponentesContador: 0,
+        habilitarBotonesExperiencia: true,
+        habilitarComponentesExperiencia: false,
+        habilitarExperienciaBuena: false,
+        habilitarExperienciaMala: false,
+        habilitarExperienciaBuenaBotones: false,
+        habilitarExperienciaMalaBotones: false,
+        habilitarComponenteRespuestas: false,
+        
     }),
     components: {
         Titulo,
@@ -82,7 +101,6 @@ export default{
             this.regresar = !this.regresar;
         },
         btnEnviarVisible(habilitar){
-            console.log("Entro");
             this.enviar = habilitar;
         },
         cambiarTituloDescripcion(tituloPosicion, descripcionPosicion){
@@ -90,11 +108,42 @@ export default{
             this.descripcionPosicion = descripcionPosicion;
             this.descripcionHabilitado = true;
         },
-        btnEnviarHabilitado(){
-            
+        componentesEncuestaIncremento(){
+            this.encuestaComponentesContador++;
         },
-        regresarOpciones(){
+        componentesEncuestaDecremento(){
+            this.encuestaComponentesContador--;
+        },
+        cambiarEstadosComponentes(experienciaBuenaMala){
+            if(this.encuestaComponentesContador === 1){
+                this.regresar = true;
+                console.log("caso 1");
+                this.habilitarBotonesExperiencia = false;
+                this.habilitarComponentesExperiencia = true;
+                if(experienciaBuenaMala === 0){
+                    this.habilitarExperienciaBuena = true;
+                    this.habilitarExperienciaBuenaBotones = true;
+                }
+            }
 
+            if(this.encuestaComponentesContador === 2){
+                
+                this.habilitarComponentesExperiencia = true;
+            }
+
+            if(this.encuestaComponentesContador === 3){
+                console.log("caso 3");
+            }
+
+            console.log(`regresar ${this.regresar}`);
+            console.log(`habilitarBotonesExperiencia ${this.habilitarBotonesExperiencia}`);
+            console.log(`habilitarComponentesExperiencia ${this.habilitarComponentesExperiencia}`);
+            console.log(`habilitarExperienciaBuena ${this.habilitarExperienciaBuena}`);
+            console.log(`habilitarExperienciaBuenaBotones ${this.habilitarExperienciaBuenaBotones}`);
+            console.log(`habilitarComponenteRespuestas ${this.habilitarComponenteRespuestas}`);
+            console.log("");
+            console.log(`experienciaBuenaMala ${experienciaBuenaMala}`);
+            console.log(this.encuestaComponentesContador);
         }
 
 
@@ -189,5 +238,14 @@ export default{
     font-weight: bold;
 }
 
+.btnRegresar{
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.btnRegresar:hover{
+    background: #515863;
+    cursor: pointer;
+}
 
 </style>
