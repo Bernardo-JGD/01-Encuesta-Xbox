@@ -30,13 +30,18 @@
     <div v-if="habilitarExperienciaBuena">
         <buena-experiencia 
             @experiencia-btn-enviar="ExperienciaBtnEnviar"
+            @cambiar-estados-componentes-en-encuesta="cambiarEstadosComponentesEnEncuesta"
             :habilitarExperienciaBuenaBotones="habilitarExperienciaBuenaBotones"
             :habilitarComponenteRespuestas="habilitarComponenteRespuestas"
+
         />
     </div>
     <div v-if="habilitarExperienciaMala" >
         <mala-experiencia 
             @btnEnviarHabilitar="ExperienciaBtnEnviar"
+            @cambiar-estados-componentes-en-encuesta="cambiarEstadosComponentesEnEncuesta"
+            :habilitarExperienciaMalaBotones="habilitarExperienciaMalaBotones"
+            :habilitarComponenteRespuestas="habilitarComponenteRespuestas"
         />
     </div>
 </div>
@@ -58,6 +63,7 @@ export default{
         "habilitarExperienciaBuena", 
         "habilitarExperienciaMala",
         "habilitarExperienciaBuenaBotones",
+        "habilitarExperienciaMalaBotones",
         "habilitarComponenteRespuestas"
     ],
     components: {
@@ -70,7 +76,9 @@ export default{
             this.$emit('enviarBoton', false);
         },
         cambiarEstadosComponentesEnEncuesta(){
-            this.$emit("");
+            this.$emit("componentesEncuestaIncremento");
+            this.$emit("cambiarEstadosComponentes");
+            console.log("Respuestas");
         }
 
     }

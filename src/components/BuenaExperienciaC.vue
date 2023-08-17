@@ -1,10 +1,10 @@
 <template>
     <!--experiencias buenas-->
     <div v-if="habilitarExperienciaBuenaBotones" class="contenedor"  >
-        <div class="opciones" @click="" >
+        <div class="opciones" @click="emitHabilitarExperienciaBuenaJuegoRespuestas(), posicionListaOpcionesJuegoBueno()" >
             <a>Juego</a>
         </div>
-        <div class="opciones" @click="" >
+        <div class="opciones" @click="emitHabilitarExperienciaBuenaJuegoRespuestas(), posicionListaOpcionesJuegoStreaming()" >
             <a>Streaming</a>
         </div>
     </div>
@@ -22,10 +22,12 @@ import Respuestas from './ListaRespuestaC.vue';
 export default{
 
     data: () => ({
-        respuestasVisibles: false,
-        posicionListaOpciones: "juegoBueno",
+        posicionListaOpciones: "",
     }),
-    props: ["habilitarExperienciaBuenaBotones", "habilitarComponenteRespuestas"],
+    props: [
+        "habilitarExperienciaBuenaBotones", 
+        "habilitarComponenteRespuestas"
+    ],
     components: {
         Respuestas
     },
@@ -38,6 +40,12 @@ export default{
         },
         btnEnviarHabilitar(){
             this.$emit("ExperienciaBtnEnviar")
+        },
+        posicionListaOpcionesJuegoBueno(){
+            this.posicionListaOpciones = "juegoBueno";
+        },
+        posicionListaOpcionesJuegoStreaming(){
+            this.posicionListaOpciones = "streamingBueno";
         }
     }
 

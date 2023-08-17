@@ -26,7 +26,9 @@
                          :habilitarBotonesExperiencia="habilitarBotonesExperiencia"
                          :habilitarComponentesExperiencia="habilitarComponentesExperiencia"
                          :habilitarExperienciaBuena="habilitarExperienciaBuena"
+                         :habilitarExperienciaMala="habilitarExperienciaMala"
                          :habilitarExperienciaBuenaBotones="habilitarExperienciaBuenaBotones"
+                         :habilitarExperienciaMalaBotones="habilitarExperienciaMalaBotones"
                          :habilitarComponenteRespuestas="habilitarComponenteRespuestas"
             />
         </div>
@@ -72,6 +74,7 @@ export default{
         enviar: true,
         regresar: false,
         encuestaComponentesContador: 0,
+        experienciaBuenaMalaActual: -1,
         habilitarBotonesExperiencia: true,
         habilitarComponentesExperiencia: false,
         habilitarExperienciaBuena: false,
@@ -120,15 +123,21 @@ export default{
                 console.log("caso 1");
                 this.habilitarBotonesExperiencia = false;
                 this.habilitarComponentesExperiencia = true;
-                if(experienciaBuenaMala === 0){
+                if(experienciaBuenaMala === 0){//0 experiencia buena
+                    this.experienciaBuenaMalaActual = experienciaBuenaMala;
                     this.habilitarExperienciaBuena = true;
                     this.habilitarExperienciaBuenaBotones = true;
+                }
+                if(experienciaBuenaMala === 1){//1 experiencia mala
+                    this.habilitarExperienciaMala = true;
+                    this.habilitarExperienciaMalaBotones = true;
                 }
             }
 
             if(this.encuestaComponentesContador === 2){
-                
-                this.habilitarComponentesExperiencia = true;
+                console.log("Caso 2");
+                this.habilitarExperienciaBuenaBotones = false;
+                this.habilitarComponenteRespuestas = true;
             }
 
             if(this.encuestaComponentesContador === 3){
@@ -140,6 +149,8 @@ export default{
             console.log(`habilitarComponentesExperiencia ${this.habilitarComponentesExperiencia}`);
             console.log(`habilitarExperienciaBuena ${this.habilitarExperienciaBuena}`);
             console.log(`habilitarExperienciaBuenaBotones ${this.habilitarExperienciaBuenaBotones}`);
+            console.log(`habilitarExperienciaBuena ${this.habilitarExperienciaMala}`);
+            console.log(`habilitarExperienciaBuenaBotones ${this.habilitarExperienciaMalaBotones}`);
             console.log(`habilitarComponenteRespuestas ${this.habilitarComponenteRespuestas}`);
             console.log("");
             console.log(`experienciaBuenaMala ${experienciaBuenaMala}`);

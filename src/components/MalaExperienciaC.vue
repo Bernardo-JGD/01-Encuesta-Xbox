@@ -1,23 +1,64 @@
 <template>
 
-    <div class="contenedor" >
-        <div class="opciones" >
+    <div v-if="habilitarExperienciaMalaBotones" class="contenedor" >
+
+        <div class="opciones" @click="emitHabilitarExperienciaMalaJuegoRespuestas(), posicionListaOpcionesJuegoMalo()" >
             <a>Juego</a>
         </div>
-        <div class="opciones" >
+
+        <div class="opciones" @click="emitHabilitarExperienciaMalaControlesRespuestas(), posicionListaOpcionesControlesMalo()" >
             <a>Controles</a>
         </div>
-        <div class="opciones" >
+
+        <div class="opciones" @click="emitHabilitarExperienciaMalaStreamingRespuestas(), posicionListaOpcionesStreamingMalo()" >
             <a>Streaming</a>
         </div>
+
+    </div>
+
+    <!--Respuestas-->
+    <div v-if="habilitarComponenteRespuestas" >
+        <respuestas :posicion-lista-opciones="posicionListaOpciones" />
     </div>
     
 </template>
 
 <script>
 
+import Respuestas from './ListaRespuestaC.vue';
+
 export default{
 
+    data: () => ({
+        posicionListaOpciones: ""
+    }),
+    components: {
+        Respuestas
+    },
+    props: [
+        "habilitarExperienciaMalaBotones",
+        "habilitarComponenteRespuestas"
+    ],
+    methods: {
+        emitHabilitarExperienciaMalaJuegoRespuestas(){
+            this.$emit("cambiarEstadosComponentesEnEncuesta");
+        },
+        emitHabilitarExperienciaMalaControlesRespuestas(){
+            this.$emit("cambiarEstadosComponentesEnEncuesta");
+        },
+        emitHabilitarExperienciaMalaStreamingRespuestas(){
+            this.$emit("cambiarEstadosComponentesEnEncuesta");
+        },
+        posicionListaOpcionesJuegoMalo(){
+            this.posicionListaOpciones = "juegoMalo";
+        },
+        posicionListaOpcionesControlesMalo(){
+            this.posicionListaOpciones = "controlesMalo";
+        },
+        posicionListaOpcionesStreamingMalo(){
+            this.posicionListaOpciones = "StreamingMalo";
+        }
+    }
 }
 
 </script>
