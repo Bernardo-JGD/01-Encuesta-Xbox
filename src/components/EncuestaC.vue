@@ -3,7 +3,7 @@
     <div class="contenedorElementos" >
         <!--Boton cerrar-->
         <div :class="{ 'contenedorCerrar': !regresar, 'contenedorCerrarRegresar':regresar }" >
-            <div v-if="regresar" @click="componentesEncuestaDecremento()" class="btnRegresar" >
+            <div v-if="regresar" @click="componentesEncuestaDecremento(), cambiarEstadosComponentes()" class="btnRegresar" >
                 <a  >Regresar</a>
             </div>
             <div>
@@ -106,18 +106,31 @@ export default{
         btnEnviarVisible(habilitar){
             this.enviar = habilitar;
         },
-        cambiarTituloDescripcion(tituloPosicion, descripcionPosicion){
+        cambiarTituloDescripcion(tituloPosicion, descripcionPosicion, descripcionHabilitado){
             this.tituloPosicion = tituloPosicion;
             this.descripcionPosicion = descripcionPosicion;
-            this.descripcionHabilitado = true;
+            this.descripcionHabilitado = descripcionHabilitado;
         },
         componentesEncuestaIncremento(){
             this.encuestaComponentesContador++;
         },
         componentesEncuestaDecremento(){
             this.encuestaComponentesContador--;
+            console.log("Contador: " + this.encuestaComponentesContador);
         },
         cambiarEstadosComponentes(experienciaBuenaMala){
+            //btnEnviar
+            //Titulos
+            //Descripcion
+            //Tendrán que ser cambiados desde estos estados
+            if(this.encuestaComponentesContador === 0){
+                console.log("Caso 0");
+                this.regresar = false;
+                this.habilitarBotonesExperiencia = true;
+                this.habilitarComponentesExperiencia = false;
+                this.cambiarTituloDescripcion(1, 0, false);
+                this.btnEnviarVisible(false);
+            }
             if(this.encuestaComponentesContador === 1){
                 this.regresar = true;
                 console.log("caso 1");
@@ -129,6 +142,7 @@ export default{
                     this.habilitarExperienciaBuenaBotones = true;
                 }
                 if(experienciaBuenaMala === 1){//1 experiencia mala
+                    this.experienciaBuenaMalaActual = experienciaBuenaMala;
                     this.habilitarExperienciaMala = true;
                     this.habilitarExperienciaMalaBotones = true;
                 }
@@ -136,8 +150,15 @@ export default{
 
             if(this.encuestaComponentesContador === 2){
                 console.log("Caso 2");
-                this.habilitarExperienciaBuenaBotones = false;
-                this.habilitarComponenteRespuestas = true;
+                if(this.experienciaBuenaMalaActual === 0){//Experiencia buena
+                    this.habilitarExperienciaBuenaBotones = false;
+                    this.habilitarComponenteRespuestas = true;
+                }
+                if(this.experienciaBuenaMalaActual){//Experiencia mala
+                    this.habilitarExperienciaMalaBotones = false;
+                    this.habilitarComponenteRespuestas = true;
+                }
+                
             }
 
             if(this.encuestaComponentesContador === 3){

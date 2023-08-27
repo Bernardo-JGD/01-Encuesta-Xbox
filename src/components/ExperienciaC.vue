@@ -5,7 +5,7 @@
         $emit('componentesEncuestaIncremento'),
         $emit('cambiarEstadosComponentes', 0), 
         $emit('enviarBoton', true), 
-        $emit('cambiarTituloDescripcion', 2, 1)
+        $emit('cambiarTituloDescripcion', 2, 1, true)
         
          " 
          class="opciones"
@@ -16,7 +16,7 @@
         $emit('componentesEncuestaIncremento'),
         $emit('cambiarEstadosComponentes', 1),
         $emit('enviarBoton', true), 
-        $emit('cambiarTituloDescripcion', 3, 1)
+        $emit('cambiarTituloDescripcion', 3, 1, true)
         
         "
         class="opciones"

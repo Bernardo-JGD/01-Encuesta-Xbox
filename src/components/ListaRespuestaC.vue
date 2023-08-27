@@ -2,7 +2,8 @@
 
     <div v-for="(opcion, indice) in listaOpciones[posicionListaOpciones]" :key="indice" >
         <label  >
-            <input type="checkbox"  >{{ opcion }} 
+            <!-- v-model="arregloRespuestas" @value="opcion" @click="metodoPrueba(opcion)" -->
+            <input type="checkbox" :checked="arregloRespuestas.includes(opcion)" @click="metodoPrueba(opcion)" >{{ opcion }} 
         </label>
     </div>
     
@@ -42,11 +43,29 @@ export default{
                 "Problemas del control"
             ]
 
-        }
+        },
+        arregloRespuestas: []
     }),
     props: ["posicionListaOpciones"],
     methods: {
-        
+        metodoPrueba(opcion){
+
+            if (this.arregloRespuestas.includes(opcion)) {
+                // Si ya existe en el arreglo, lo eliminamos
+                const index = this.arregloRespuestas.indexOf(opcion);
+                this.arregloRespuestas.splice(index, 1);
+            } else {
+                // Si no existe en el arreglo, lo agregamos
+                this.arregloRespuestas.push(opcion);
+            }
+            console.log(this.arregloRespuestas);
+            /*
+            console.log(opcion);
+            this.arregloRespuestas.push(opcion);
+            console.log(this.arregloRespuestas);
+            */
+            
+        }
     }
 }
 
