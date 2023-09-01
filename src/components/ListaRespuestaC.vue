@@ -3,7 +3,7 @@
     <div v-for="(opcion, indice) in listaOpciones[posicionListaOpciones]" :key="indice" >
         <label  >
             <!-- v-model="arregloRespuestas" @value="opcion" @click="metodoPrueba(opcion)" -->
-            <input type="checkbox" :checked="arregloRespuestas.includes(opcion)" @click="metodoPrueba(opcion)" >{{ opcion }} 
+            <input type="checkbox" @click="metodoPrueba(opcion)"  >{{ opcion }} 
         </label>
     </div>
     
@@ -47,9 +47,17 @@ export default{
         arregloRespuestas: []
     }),
     props: ["posicionListaOpciones"],
+    mounted(){
+        console.log(this.posicionListaOpciones);
+        this.listaOpciones[this.posicionListaOpciones].forEach(opcion =>{
+            let opcionSinEspacios = opcion.replace(/\s/g, "_");
+            this.arregloRespuestas[opcionSinEspacios] = false;
+            
+        });
+    },
     methods: {
         metodoPrueba(opcion){
-
+            /*
             if (this.arregloRespuestas.includes(opcion)) {
                 // Si ya existe en el arreglo, lo eliminamos
                 const index = this.arregloRespuestas.indexOf(opcion);
@@ -58,7 +66,10 @@ export default{
                 // Si no existe en el arreglo, lo agregamos
                 this.arregloRespuestas.push(opcion);
             }
+             */
+             let opcionSinEspacios = opcion.replace(/\s/g, "_");
             console.log(this.arregloRespuestas);
+            this.arregloRespuestas[opcionSinEspacios] = !this.arregloRespuestas[opcionSinEspacios];
             /*
             console.log(opcion);
             this.arregloRespuestas.push(opcion);
